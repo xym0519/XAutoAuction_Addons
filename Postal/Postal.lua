@@ -63,14 +63,14 @@ local defaults = {
 	global = {
 		BlackBook = {
 			alts = {},
-		EnableDefault = false,
+			EnableDefault = false,
 		},
 	},
 }
 local _G = getfenv(0)
 local t = {}
 Postal3DB = {}
-Postal.keepFreeOptions = {0, 1, 2, 3, 5, 10, 15, 20, 25, 30}
+Postal.keepFreeOptions = { 0, 1, 2, 3, 5, 10, 15, 20, 25, 30 }
 
 Postal.WOWClassic = false
 Postal.WOWBCClassic = false
@@ -84,8 +84,8 @@ Postal_DropDownMenu.displayMode = "MENU"
 Postal_DropDownMenu.info = {}
 Postal_DropDownMenu.levelAdjust = 0
 Postal_DropDownMenu.UncheckHack = function(dropdownbutton)
-	_G[dropdownbutton:GetName().."Check"]:Hide()
-	_G[dropdownbutton:GetName().."UnCheck"]:Hide()
+	_G[dropdownbutton:GetName() .. "Check"]:Hide()
+	_G[dropdownbutton:GetName() .. "UnCheck"]:Hide()
 end
 Postal_DropDownMenu.HideMenu = function()
 	if UIDROPDOWNMENU_OPEN_MENU == Postal_DropDownMenu then
@@ -95,7 +95,7 @@ end
 
 -- Functions for long subject mouseover
 local function subjectHoverIn(self)
-	local s = _G["MailItem"..self:GetID().."Subject"]
+	local s = _G["MailItem" .. self:GetID() .. "Subject"]
 	if s:GetStringWidth() + 25 > s:GetWidth() then
 		GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
 		GameTooltip:SetText(s:GetText())
@@ -108,7 +108,7 @@ end
 
 function Postal:PLAYER_INTERACTION_MANAGER_FRAME_HIDE(eventName, ...)
 	local paneType = ...
-	if paneType ==  Enum.PlayerInteractionType.MailInfo then Postal:MAIL_CLOSED() end
+	if paneType == Enum.PlayerInteractionType.MailInfo then Postal:MAIL_CLOSED() end
 end
 
 ---------------------------
@@ -116,7 +116,6 @@ end
 ---------------------------
 
 function Postal:OnInitialize()
-
 	--print("Postal is Active and Running");
 
 	-- Detect which release of WOW is running and set appropriate flags
@@ -126,12 +125,12 @@ function Postal:OnInitialize()
 	if _G.WOW_PROJECT_ID == _G.WOW_PROJECT_CATACLYSM_CLASSIC then Postal.WOWCataClassic = true end
 	if _G.WOW_PROJECT_ID == _G.WOW_PROJECT_MAINLINE then Postal.WOWRetail = true end
 	if _G.WOW_PROJECT_ID == _G.LE_EXPANSION_11_0 then Postal.WOWRetail = true end
---	if Postal.WOWClassic then DEFAULT_CHAT_FRAME:AddMessage("Postal WOW Classic", 0.0, 0.69, 0.94) end
---	if Postal.WOWBCClassic then DEFAULT_CHAT_FRAME:AddMessage("Postal WOW BC Classic", 0.0, 0.69, 0.94) end
---	if Postal.WOWWotLKClassic then DEFAULT_CHAT_FRAME:AddMessage("Postal WOW WotLK Classic", 0.0, 0.69, 0.94) end
---	if Postal.WOWCataClassic then DEFAULT_CHAT_FRAME:AddMessage("Postal WOW Cataclysm Classic", 0.0, 0.69, 0.94) end
---	if Postal.WOWRetail then DEFAULT_CHAT_FRAME:AddMessage("Postal WOW Retail", 0.0, 0.69, 0.94) end
---	if Postal.WOWRetail then DEFAULT_CHAT_FRAME:AddMessage("LE_EXPANSION_11_0", 0.0, 0.69, 0.94) end
+	--	if Postal.WOWClassic then DEFAULT_CHAT_FRAME:AddMessage("Postal WOW Classic", 0.0, 0.69, 0.94) end
+	--	if Postal.WOWBCClassic then DEFAULT_CHAT_FRAME:AddMessage("Postal WOW BC Classic", 0.0, 0.69, 0.94) end
+	--	if Postal.WOWWotLKClassic then DEFAULT_CHAT_FRAME:AddMessage("Postal WOW WotLK Classic", 0.0, 0.69, 0.94) end
+	--	if Postal.WOWCataClassic then DEFAULT_CHAT_FRAME:AddMessage("Postal WOW Cataclysm Classic", 0.0, 0.69, 0.94) end
+	--	if Postal.WOWRetail then DEFAULT_CHAT_FRAME:AddMessage("Postal WOW Retail", 0.0, 0.69, 0.94) end
+	--	if Postal.WOWRetail then DEFAULT_CHAT_FRAME:AddMessage("LE_EXPANSION_11_0", 0.0, 0.69, 0.94) end
 	-- Version number
 	if not self.version then self.version = C_AddOns.GetAddOnMetadata("Postal", "Version") end
 
@@ -140,13 +139,13 @@ function Postal:OnInitialize()
 	if Postal3DB and Postal3DB.global then
 		EnableDefault = Postal3DB.global.EnableDefault and true or false
 	end
---	if type(next(Postal3DB)) ~= "nil" then EnableDefault = Postal3DB.global.EnableDefault end
+	--	if type(next(Postal3DB)) ~= "nil" then EnableDefault = Postal3DB.global.EnableDefault end
 	if EnableDefault == true then
 		self.db = LibStub("AceDB-3.0"):New("Postal3DB", defaults, true)
 	else
 		self.db = LibStub("AceDB-3.0"):New("Postal3DB", defaults)
 	end
---	self.db = LibStub("AceDB-3.0"):New("Postal3DB", defaults)
+	--	self.db = LibStub("AceDB-3.0"):New("Postal3DB", defaults)
 	self.db.RegisterCallback(self, "OnProfileChanged", "OnProfileChanged")
 	self.db.RegisterCallback(self, "OnProfileCopied", "OnProfileChanged")
 	self.db.RegisterCallback(self, "OnProfileReset", "OnProfileChanged")
@@ -187,9 +186,9 @@ function Postal:OnInitialize()
 
 	-- Create 7 buttons for mouseover on long subject lines
 	for i = 1, 7 do
-		local b = CreateFrame("Button", "PostalSubjectHover"..i, _G["MailItem"..i])
+		local b = CreateFrame("Button", "PostalSubjectHover" .. i, _G["MailItem" .. i])
 		b:SetID(i)
-		b:SetAllPoints(_G["MailItem"..i.."Subject"])
+		b:SetAllPoints(_G["MailItem" .. i .. "Subject"])
 		b:SetScript("OnEnter", subjectHoverIn)
 		b:SetScript("OnLeave", subjectHoverOut)
 	end
@@ -230,13 +229,13 @@ end
 function Postal:Print(...)
 	local text = "|cff33ff99Postal|r:"
 	for i = 1, select("#", ...) do
-		text = text.." "..tostring(select(i, ...))
+		text = text .. " " .. tostring(select(i, ...))
 	end
 
 	if not self:IsChatFrameActive(self.db.profile.ChatOutput) then
 		self.db.profile.ChatOutput = 1
 	end
-	local chatFrame = _G["ChatFrame"..self.db.profile.ChatOutput]
+	local chatFrame = _G["ChatFrame" .. self.db.profile.ChatOutput]
 	if chatFrame then
 		chatFrame:AddMessage(text)
 	end
@@ -244,7 +243,7 @@ end
 
 function Postal:IsChatFrameActive(i)
 	local _, _, _, _, _, _, shown = FCF_GetChatWindowInfo(i);
-	local chatFrame = _G["ChatFrame"..i]
+	local chatFrame = _G["ChatFrame" .. i]
 	if chatFrame then
 		if shown or chatFrame.isDocked then
 			return true
@@ -289,7 +288,7 @@ StaticPopupDialogs["POSTAL_NEW_PROFILE"] = {
 	button2 = CANCEL,
 	hasEditBox = 1,
 	maxLetters = 128,
-	editBoxWidth = 350,  -- Needed in Cata
+	editBoxWidth = 350, -- Needed in Cata
 	OnAccept = function(self)
 		Postal.db:SetProfile(strtrim(self.editBox:GetText()))
 	end,
@@ -379,7 +378,6 @@ function Postal.Menu(self, level)
 		info.func = self.HideMenu
 		info.tooltipTitle = CLOSE
 		UIDropDownMenu_AddButton(info, level)
-
 	elseif level == 2 then
 		if UIDROPDOWNMENU_MENU_VALUE == "OpenSpeed" then
 			local speed = Postal.db.profile.OpenSpeed
@@ -392,7 +390,7 @@ function Postal.Menu(self, level)
 				UIDropDownMenu_AddButton(info, level)
 			end
 			for i = 0, 13 do
-				local s = 0.3 + i*0.05
+				local s = 0.3 + i * 0.05
 				info.text = format("%0.2f", s)
 				info.func = Postal.SetOpenSpeed
 				info.checked = s == speed
@@ -400,26 +398,24 @@ function Postal.Menu(self, level)
 				UIDropDownMenu_AddButton(info, level)
 			end
 			for i = 0, 8 do
-				local s = 1 + i*0.5
+				local s = 1 + i * 0.5
 				info.text = format("%0.2f", s)
 				info.func = Postal.SetOpenSpeed
 				info.checked = s == speed
 				info.arg1 = s
 				UIDropDownMenu_AddButton(info, level)
 			end
-
 		elseif UIDROPDOWNMENU_MENU_VALUE == "ChatOutput" then
 			local selectedFrame = Postal.db.profile.ChatOutput
 			for i = 1, NUM_CHAT_WINDOWS do
 				if Postal:IsChatFrameActive(i) then
-					info.text = format("%d. %s", i, _G["ChatFrame"..i.."Tab"]:GetText())
+					info.text = format("%d. %s", i, _G["ChatFrame" .. i .. "Tab"]:GetText())
 					info.func = Postal.SetChatOutput
 					info.checked = i == selectedFrame
 					info.arg1 = i
 					UIDropDownMenu_AddButton(info, level)
 				end
 			end
-
 		elseif UIDROPDOWNMENU_MENU_VALUE == "Profile" then
 			-- Profile stuff
 			info.hasArrow = 1
@@ -459,7 +455,6 @@ function Postal.Menu(self, level)
 			info.func = Postal.EnableDefault
 			info.checked = Postal.db.global.EnableDefault
 			UIDropDownMenu_AddButton(info, level)
-
 		elseif type(UIDROPDOWNMENU_MENU_VALUE) == "table" and UIDROPDOWNMENU_MENU_VALUE.ModuleMenu then
 			-- Submenus for modules
 			self.levelAdjust = 1
@@ -467,7 +462,6 @@ function Postal.Menu(self, level)
 			self.levelAdjust = 0
 			self.module = UIDROPDOWNMENU_MENU_VALUE
 		end
-
 	elseif level == 3 then
 		if UIDROPDOWNMENU_MENU_VALUE == "SetProfile" then
 			local cur = Postal.db:GetCurrentProfile()
@@ -482,7 +476,6 @@ function Postal.Menu(self, level)
 				info.checked = cur == s
 				UIDropDownMenu_AddButton(info, level)
 			end
-
 		elseif UIDROPDOWNMENU_MENU_VALUE == "CopyProfile" or UIDROPDOWNMENU_MENU_VALUE == "DeleteProfile" then
 			local cur = Postal.db:GetCurrentProfile()
 			Postal.db:GetProfiles(t)
@@ -498,20 +491,17 @@ function Postal.Menu(self, level)
 					UIDropDownMenu_AddButton(info, level)
 				end
 			end
-
 		elseif self.module and self.module.ModuleMenu then
 			self.levelAdjust = 1
 			self.module.ModuleMenu(self, level)
 			self.levelAdjust = 0
 		end
-
 	elseif level > 3 then
 		if self.module and self.module.ModuleMenu then
 			self.levelAdjust = 1
 			self.module.ModuleMenu(self, level)
 			self.levelAdjust = 0
 		end
-
 	end
 end
 
@@ -527,10 +517,12 @@ function Postal:CreateAboutFrame()
 		aboutFrame:SetBackdrop({
 			bgFile = [[Interface\DialogFrame\UI-DialogBox-Background]],
 			edgeFile = [[Interface\DialogFrame\UI-DialogBox-Border]],
-			tile = true, tileSize = 16, edgeSize = 16,
+			tile = true,
+			tileSize = 16,
+			edgeSize = 16,
 			insets = { left = 3, right = 3, top = 5, bottom = 3 }
 		})
-		aboutFrame:SetBackdropColor(0,0,0,1)
+		aboutFrame:SetBackdropColor(0, 0, 0, 1)
 		aboutFrame:SetWidth(500)
 		aboutFrame:SetHeight(400)
 		aboutFrame:SetPoint("CENTER", UIParent, "CENTER")
@@ -566,11 +558,11 @@ function Postal.About()
 	if Postal.CreateAboutFrame then Postal:CreateAboutFrame() end
 	local version = C_AddOns.GetAddOnMetadata("Postal", "Version")
 	wipe(t)
-	tinsert(t, "|cFFFFCC00"..C_AddOns.GetAddOnMetadata("Postal", "Title").." v"..version.."|r")
+	tinsert(t, "|cFFFFCC00" .. C_AddOns.GetAddOnMetadata("Postal", "Title") .. " v" .. version .. "|r")
 	tinsert(t, "-----")
 	tinsert(t, "")
 	for name, module in Postal:IterateModules() do
-		tinsert(t, "|cffffcc00"..L[name].."|r")
+		tinsert(t, "|cffffcc00" .. L[name] .. "|r")
 		if module.description then
 			tinsert(t, module.description)
 		end
@@ -581,7 +573,10 @@ function Postal.About()
 		tinsert(t, "")
 	end
 	tinsert(t, "-----")
-	tinsert(t, L["Please post bugs or suggestions at the CurseForge forums thread at |cFF00FFFFhttp://www.curseforge.com/wow/addons/postal/issues|r. When posting bugs, indicate your locale and Postal's version number v%s."]:format(version))
+	tinsert(t,
+		L
+		["Please post bugs or suggestions at the CurseForge forums thread at |cFF00FFFFhttp://www.curseforge.com/wow/addons/postal/issues|r. When posting bugs, indicate your locale and Postal's version number v%s."]
+		:format(version))
 	tinsert(t, "")
 	tinsert(t, "- Xinhuan (Blackrock/Barthilas US Alliance)")
 	tinsert(t, "")
@@ -636,9 +631,10 @@ function Postal:GetMoneyString(money)
 	local silver = floor((money - gold * 10000) / 100)
 	local copper = mod(money, 100)
 	if gold > 0 then
-		return format(GOLD_AMOUNT_TEXTURE.." "..SILVER_AMOUNT_TEXTURE.." "..COPPER_AMOUNT_TEXTURE, gold, 0, 0, silver, 0, 0, copper, 0, 0)
+		return format(GOLD_AMOUNT_TEXTURE .. " " .. SILVER_AMOUNT_TEXTURE .. " " .. COPPER_AMOUNT_TEXTURE, gold, 0, 0,
+			silver, 0, 0, copper, 0, 0)
 	elseif silver > 0 then
-		return format(SILVER_AMOUNT_TEXTURE.." "..COPPER_AMOUNT_TEXTURE, silver, 0, 0, copper, 0, 0)
+		return format(SILVER_AMOUNT_TEXTURE .. " " .. COPPER_AMOUNT_TEXTURE, silver, 0, 0, copper, 0, 0)
 	else
 		return format(COPPER_AMOUNT_TEXTURE, copper, 0, 0)
 	end
@@ -649,11 +645,12 @@ function Postal:GetMoneyStringPlain(money)
 	local silver = floor((money - gold * 10000) / 100)
 	local copper = mod(money, 100)
 	if gold > 0 then
-		return gold..GOLD_AMOUNT_SYMBOL.." "..silver..SILVER_AMOUNT_SYMBOL.." "..copper..COPPER_AMOUNT_SYMBOL
+		return gold .. GOLD_AMOUNT_SYMBOL .. " " .. silver .. SILVER_AMOUNT_SYMBOL .. " " .. copper ..
+		COPPER_AMOUNT_SYMBOL
 	elseif silver > 0 then
-		return silver..SILVER_AMOUNT_SYMBOL.." "..copper..COPPER_AMOUNT_SYMBOL
+		return silver .. SILVER_AMOUNT_SYMBOL .. " " .. copper .. COPPER_AMOUNT_SYMBOL
 	else
-		return copper..COPPER_AMOUNT_SYMBOL
+		return copper .. COPPER_AMOUNT_SYMBOL
 	end
 end
 
