@@ -328,6 +328,7 @@ function Postal_Select:ProcessNext()
 						playerName = playerName and (" ("..playerName..")")
 					end
 					Postal:Print(format("%s %d: %s%s%s", L["Open"], mailIndex, msgSubject or "", moneyString, (playerName or "")))
+					XUtils.AHMail(mailIndex, msgSubject or "", msgMoney, playerName or "")
 				end
 			end
 
