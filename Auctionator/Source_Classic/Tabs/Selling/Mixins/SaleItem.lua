@@ -712,7 +712,7 @@ function AuctionatorSaleItemMixin:PostItem(confirmed)
     minPriceSeen = self.minPriceSeen,
   })
 
-  Auctionator.AH.PostAuction(startingBid, buyoutPrice, duration, stackSize, numStacks)
+  Auctionator.AH.PostAuction(startingBid, buyoutPrice, duration, stackSize, numStacks, self.itemInfo)
 
   if Auctionator.Config.Get(Auctionator.Config.Options.SAVE_LAST_DURATION_AS_DEFAULT) then
     Auctionator.Config.Set(Auctionator.Config.Options.AUCTION_DURATION, self.Duration:GetValue())

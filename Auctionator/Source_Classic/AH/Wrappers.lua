@@ -32,12 +32,45 @@ end
 
 function Auctionator.AH.PlaceAuctionBid(...)
   Auctionator.AH.Internals.throttling:BidPlaced()
-  PlaceAuctionBid("list", ...)
+
+  local index = select(1, ...)
+  local stackPrice = select(2, ...)
+
+  local buyTime = time();
+
+  local itemName, _, stackCount, _, _, _, _, _, _, buyoutPrice = GetAuctionItemInfo('list', 1)
+  local key = itemName .. ":" .. time() .. ":" .. #XAuctionatorBuyList + 1;
+  local buyHistory = { itemName = itemName, buyTime = buyTime, price = buyoutPrice / stackCount, count = stackCount };
+  XAuctionatorBuyList[key] = buyHistory;
+
+  PlaceAuctionBid("list", index, stackPrice)
 end
 
 function Auctionator.AH.PostAuction(...)
   Auctionator.AH.Internals.throttling:AuctionsPosted()
-  PostAuction(...)
+
+  local startingBid = select(1, ...)
+  local buyoutPrice = select(2, ...)
+  local duration = select(3, ...)
+  local stackSize = select(4, ...)
+  local numStacks = select(5, ...)
+  local itemInfo = select(6, ...)
+
+  local sellTime = time();
+
+  local key = itemInfo.itemName .. ":" .. time();
+  local sellHistory = {
+    itemName = itemInfo.itemName,
+    sellTime = sellTime,
+    price = buyoutPrice / stackSize,
+    count = stackSize * numStacks,
+    stackPrice = buyoutPrice,
+    stackSize = stackSize,
+    stackCount = numStacks
+  };
+  XAuctionatorSellList[key] = sellHistory;
+
+  PostAuction(startingBid, buyoutPrice, duration, stackSize, numStacks)
 end
 
 -- view is a string and must be "list", "owner" or "bidder"
@@ -54,6 +87,33 @@ function Auctionator.AH.DumpAuctions(view)
       index = index,
     }
     table.insert(auctions, entry)
+
+    local itemName = auctionInfo[1]
+    local stackCount = auctionInfo[3]
+    local buyoutPrice = auctionInfo[10]
+    local time = time()
+    local key = itemName .. ":" .. (time - time % 60);
+    if (not XAuctionatorScanList[key]) then
+      local item = {
+        itemName = itemName,
+        maxPrice = buyoutPrice / stackCount,
+        minPrice = buyoutPrice / stackCount,
+        sumPrice = buyoutPrice,
+        count = stackCount
+      };
+      XAuctionatorScanList[key] = item;
+    else
+      local item = XAuctionatorScanList[key];
+      if (item.maxPrice < buyoutPrice / stackCount) then
+        item.maxPrice = buyoutPrice / stackCount;
+      end
+      if (item.minPrice > buyoutPrice / stackCount) then
+        item.minPrice = buyoutPrice / stackCount;
+      end
+      item.sumPrice = item.sumPrice + buyoutPrice;
+      item.count = item.count + stackCount;
+      XAuctionatorScanList[key] = item;
+    end
   end
   return auctions
 end
