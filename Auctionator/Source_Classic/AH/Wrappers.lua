@@ -32,11 +32,22 @@ end
 
 function Auctionator.AH.PlaceAuctionBid(...)
   Auctionator.AH.Internals.throttling:BidPlaced()
+
+  local index, stackPrice = select(1, ...)
+  local itemName, _, stackCount, _, _, _, _, _, _, buyoutPrice = GetAuctionItemInfo('list', index)
+  if stackPrice >= buyoutPrice then
+    XExternal.addBuyHistory(itemName, time(), stackPrice / stackCount, stackCount)
+  end
+
   PlaceAuctionBid("list", ...)
 end
 
 function Auctionator.AH.PostAuction(...)
   Auctionator.AH.Internals.throttling:AuctionsPosted()
+
+  -- local startingBid, buyoutPrice, duration, stackSize, numStacks, itemInfo = select(1, ...)
+  -- XExternal.addSellHistory(itemInfo.itemName, time(), true, buyoutPrice / stackSize, stackSize)
+  -- PostAuction(startingBid, buyoutPrice, duration, stackSize, numStacks)
   PostAuction(...)
 end
 
@@ -53,6 +64,14 @@ function Auctionator.AH.DumpAuctions(view)
       timeLeft = timeLeft - 1, --Offset to match Retail time parameters
       index = index,
     }
+
+    if view == 'list' then
+      local itemName = auctionInfo[1]
+      local stackCount = auctionInfo[3]
+      local buyoutPrice = auctionInfo[10]
+      XExternal.addScanHistory(itemName, time(), buyoutPrice / stackCount)
+    end
+
     table.insert(auctions, entry)
   end
   return auctions
