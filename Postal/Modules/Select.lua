@@ -323,7 +323,6 @@ function Postal_Select:ProcessNext()
 					local moneyString = msgMoney > 0 and " ["..Postal:GetMoneyString(msgMoney).."]" or ""
 					local playerName
 					local mailType = Postal:GetMailType(msgSubject)
-					XExternal.processMail(mailIndex, mailType, msgSubject)
 					if (mailType == "AHSuccess" or mailType == "AHWon") then
 						playerName = select(3,GetInboxInvoiceInfo(mailIndex))
 						playerName = playerName and (" ("..playerName..")")
