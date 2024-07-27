@@ -70,7 +70,9 @@ function Auctionator.AH.DumpAuctions(view)
       local stackCount = auctionInfo[3]
       local buyoutPrice = auctionInfo[10]
       local itemId = auctionInfo[17]
-      XExternal.addScanHistory(itemName, itemId, time(), buyoutPrice / stackCount)
+
+      XExternal.updateItemInfo(itemName, itemId)
+      XExternal.addScanHistory(itemName, time(), buyoutPrice / stackCount)
     end
 
     table.insert(auctions, entry)
