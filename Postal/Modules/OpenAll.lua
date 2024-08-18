@@ -234,7 +234,6 @@ function Postal_OpenAll:ProcessNext()
 
 		-- Filter by mail type
 		local mailType = Postal:GetMailType(msgSubject)
-		XExternal.processMail(mailIndex, mailType, msgSubject)
 		if mailType == "NonAHMail" then
 			-- Skip mail with attachments according to user options
 			if msgItem and Postal.db.profile.OpenAll.Postmaster and sender
@@ -305,8 +304,8 @@ function Postal_OpenAll:ProcessNext()
 			local name, itemID, itemTexture, count, quality, canUse = GetInboxItem(mailIndex, attachIndex)
 			local link = GetInboxItemLink(mailIndex, attachIndex)
 			local itemID = strmatch(link, "item:(%d+)")
-			local stackSize = select(8, GetItemInfo(link))
-			if itemID and stackSize and GetItemCount(itemID) > 0 then
+			local stackSize = select(8, C_Item.GetItemInfo(link))
+			if itemID and stackSize and C_Item.GetItemCount(itemID) > 0 then
 				for bag = 0, NUM_BAG_SLOTS do
 					local ContainerNumSlots
 					if Postal.WOWBCClassic then
