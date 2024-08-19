@@ -23,19 +23,7 @@
 /Quartz/
 /Questie/
 /Skillet-Classic/
-/Titan/
-/TitanAmmo/
-/TitanBag/
-/TitanClassic/
-/TitanClock/
-/TitanGold/
-/TitanLocation/
-/TitanLootType/
-/TitanPerformance/
-/TitanRegen/
-/TitanRepair/
-/TitanVolume/
-/TitanXP/
+/Titan*/
 /WIM/
 /WeakAuras/
 /WeakAurasArchive/
@@ -59,3 +47,4 @@
 /TacoTip/
 /Auctionator/.vscode/
 /Recount/
+/ThreatClassic2/
