@@ -1,0 +1,18 @@
+## Interface: 30403
+## Title: WowLua
+## Version: v1.1.2-release
+## Author: Cladhaire
+## Notes: Interactive Lua interpreter and scratchpad
+## LoadManagers: AddonLoader
+## X-LoadOn-Slash: /wowlua, /lua, /wowluarun, /luarun
+## SavedVariables: WowLua_DB
+## X-Curse-Project-ID: 24331
+## X-WoWI-ID: 7366
+
+TaintLess.xml
+
+Localization.enUS.lua
+
+WowLua.lua
+FAIAP.lua
+WowLua.xml
