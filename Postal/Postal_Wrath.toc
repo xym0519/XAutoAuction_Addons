@@ -16,7 +16,7 @@
 ## Notes-ptBR: Postal: Apoio caixa reforçada
 ## OptionalDeps: Ace3, !BlizzBugsSuck, !ClassColors
 ## SavedVariables: Postal3DB
-## Dependencies: XAutoAuction
+## Dependencies: XJewTool
 
 ## LoadManagers: AddonLoader
 ## X-LoadOn-Mailbox: true
