@@ -65,16 +65,6 @@ function Auctionator.AH.DumpAuctions(view)
       index = index,
     }
 
-    if view == 'list' then
-      local itemName = auctionInfo[1]
-      local stackCount = auctionInfo[3]
-      local buyoutPrice = auctionInfo[10]
-      local itemId = auctionInfo[17]
-
-      XExternal.updateItemInfo(itemName, itemId)
-      XExternal.addScanHistory(itemName, time(), buyoutPrice / stackCount)
-    end
-
     table.insert(auctions, entry)
   end
   return auctions
