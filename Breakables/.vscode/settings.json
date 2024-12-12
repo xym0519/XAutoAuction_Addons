@@ -1,0 +1,48 @@
+{
+    "Lua.runtime.version": "Lua 5.1",
+    "Lua.runtime.builtin": {
+        "basic": "disable",
+        "debug": "disable",
+        "io": "disable",
+        "math": "disable",
+        "os": "disable",
+        "package": "disable",
+        "string": "disable",
+        "table": "disable",
+        "utf8": "disable"
+    },
+    "Lua.workspace.library": [
+        "~\\.vscode\\extensions\\ketho.wow-api-0.17.6\\Annotations"
+    ],
+    "Lua.diagnostics.globals": [
+        "StaticPopupDialogs",
+        "YES",
+        "NO",
+        "WorldFrame",
+        "TooltipUtil",
+        "LOCKED",
+        "LE_EXPANSION_LEVEL_CURRENT",
+        "LE_EXPANSION_WRATH_OF_THE_LICH_KING",
+        "StaticPopup_Show",
+        "LE_EXPANSION_BURNING_CRUSADE",
+        "ITEM_MILLABLE",
+        "ITEM_SOULBOUND",
+        "ITEM_ACCOUNTBOUND",
+        "ITEM_BNETACCOUNTBOUND",
+        "ITEM_PROSPECTABLE",
+        "SELECTED_CHAT_FRAME",
+        "DEFAULT_CHAT_FRAME",
+        "ACCEPT",
+        "CANCEL",
+        "Settings",
+        "SlashCmdList",
+        "hash_SlashCmdList",
+        "NORMAL_FONT_COLOR_CODE",
+        "FONT_COLOR_CODE_CLOSE",
+        "CLOSE",
+        "SetDesaturation",
+        "ColorPickerFrame",
+        "OKAY",
+        "NOT_BOUND"
+    ]
+}
