@@ -234,7 +234,6 @@ function Postal_OpenAll:ProcessNext()
 
 		-- Filter by mail type
 		local mailType = Postal:GetMailType(msgSubject)
-		XExternal.processMail(mailIndex, mailType, msgSubject)
 		if mailType == "NonAHMail" then
 			-- Skip mail with attachments according to user options
 			if msgItem and Postal.db.profile.OpenAll.Postmaster and sender
@@ -258,6 +257,7 @@ function Postal_OpenAll:ProcessNext()
 			end
 		end
 
+		XExternal.processMail(mailIndex, mailType, msgSubject)
 		-- Print message on next mail
 		if Postal.db.profile.OpenAll.SpamChat and attachIndex == ATTACHMENTS_MAX_RECEIVE then
 			if not invFull or msgMoney > 0 then
